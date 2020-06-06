@@ -10,7 +10,7 @@ def getHealth(hitDice, f):
 
 #TODO: Write a parser for the regular expression.
 
-def calcAvg():
+def calcAverageHealth():
     pass # 1/2 die value rounded down for every roll.
 
 def calcMax():
@@ -19,23 +19,22 @@ def calcMax():
 def calcMin():
     pass # Min die value for every roll (1).
 
-def calcPCA():
+def calcPCAverage():
     pass # Max die value for first HD, 1/2 die value rounded down for every other roll.
 
-def calcPCR():
+def calcPCRollHealth():
     pass # Max die value for first HD, randomly rolled for every other roll.
 
-def calcPCS():
+def calcPCSuggestedHealth():
     pass # Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
 
-def calcRol():
+def calcRandomHealth():
     pass # Random rolls.
 
-def calcSug():
+def calcSuggestedHealth():
     pass # (1/2)+1 die value rounded down for every roll.
 
-print("Enter the monster's hit dice.")
-hitDice = str(input())
+hitDice = input("Enter the monster's hit dice.")
 
 calcMsg = """Enter how you would like health calculated:
     - avg for the average health.
