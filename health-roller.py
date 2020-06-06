@@ -3,8 +3,10 @@ import re
 
 hitDiceRegex = re.compile(r'([+/-]*[\d]*d[\d]{1,2}|[+/-]*\d+)')
 
-def getHealth(hitDice, method):
+def getHealth(hitDice, f):
     hd = hitDiceRegex.findall(hitDice)
+    print(hd)
+    print(str(f))
 
 #TODO: Write a parser for the regular expression.
 
@@ -26,7 +28,7 @@ def calcPCR():
 def calcPCS():
     pass # Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
 
-def rollHealth():
+def calcRol():
     pass # Random rolls.
 
 def calcSug():
@@ -48,9 +50,18 @@ calcMsg = """Enter how you would like health calculated:
 
 while True:
     calcMethod = input(calcMsg)
-    calcMethods = ['avg', 'max', 'min', 'pca', 'pcr', 'pcs', 'rol', 'sug']
+    calcMethods = {
+        'avg': calcAvg,
+        'max': calcMax,
+        'min': calcMin,
+        'pca': calcPCA,
+        'pcr': calcPCR,
+        'pcs': calcPCS,
+        'rol': calcRol,
+        'sug': calcSug
+    }
     if calcMethod in calcMethods:
-        getHealth(hitDice, calcMethod)
+        getHealth(hitDice, calcMethods[calcMethod])
         break
     else:
         print('That is not a valid option.')
