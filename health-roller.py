@@ -5,7 +5,6 @@ hitDiceRegex = re.compile(r'([+/-]*[\d]*d[\d]{1,2}|[+/-]*\d+)')
 
 def getHealth(hitDice, method):
     hd = hitDiceRegex.findall(hitDice)
-    print(hd)
 
 #TODO: Write a parser for the regular expression.
 
@@ -18,6 +17,15 @@ def calcMax():
 def calcMin():
     pass # Min die value for every roll (1).
 
+def calcPCA():
+    pass # Max die value for first HD, 1/2 die value rounded down for every other roll.
+
+def calcPCR():
+    pass # Max die value for first HD, randomly rolled for every other roll.
+
+def calcPCS():
+    pass # Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
+
 def rollHealth():
     pass # Random rolls.
 
@@ -27,15 +35,22 @@ def calcSug():
 print("Enter the monster's hit dice.")
 hitDice = str(input())
 
-print("""Enter how you would like health calculated:
+calcMsg = """Enter how you would like health calculated:
     - avg for the average health.
     - max for the maximum health.
     - min for the minimum health.
+    - pca for PC-styled average health.
+    - pcr for PC-styled randomly rolled health.
+    - pcs for PC-styled suggested health.
     - rol for randomly rolled health.
-    - sug for the suggested health.""")
-calcMethod = input()
-if calcMethod == 'avg' or 'max' or 'min' or 'rol' or 'sug':
-    getHealth(hitDice, calcMethod)
-else:
-    print('That is not a valid option.')
-    calcMethod = input
+    - sug for the suggested health.
+    """
+
+while True:
+    calcMethod = input(calcMsg)
+    calcMethods = ['avg', 'max', 'min', 'pca', 'pcr', 'pcs', 'rol', 'sug']
+    if calcMethod in calcMethods:
+        getHealth(hitDice, calcMethod)
+        break
+    else:
+        print('That is not a valid option.')
