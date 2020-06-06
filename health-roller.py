@@ -5,8 +5,6 @@ hitDiceRegex = re.compile(r'([+/-]*[\d]*d[\d]{1,2}|[+/-]*\d+)')
 
 def getHealth(hitDice, f):
     hd = hitDiceRegex.findall(hitDice)
-    print(hd)
-    print(str(f))
 
 #TODO: Write a parser for the regular expression.
 
@@ -35,7 +33,6 @@ def calcSuggestedHealth():
     pass # (1/2)+1 die value rounded down for every roll.
 
 hitDice = input("Enter the monster's hit dice.")
-
 calcMsg = """Enter how you would like health calculated:
     - avg for the average health.
     - max for the maximum health.
@@ -50,14 +47,14 @@ calcMsg = """Enter how you would like health calculated:
 while True:
     calcMethod = input(calcMsg)
     calcMethods = {
-        'avg': calcAvg,
+        'avg': calcAverageHealth,
         'max': calcMax,
         'min': calcMin,
-        'pca': calcPCA,
-        'pcr': calcPCR,
-        'pcs': calcPCS,
-        'rol': calcRol,
-        'sug': calcSug
+        'pca': calcPCAverage,
+        'pcr': calcPCRollHealth,
+        'pcs': calcPCSuggestedHealth,
+        'rol': calcPCRollHealth,
+        'sug': calcSuggestedHealth
     }
     if calcMethod in calcMethods:
         getHealth(hitDice, calcMethods[calcMethod])
