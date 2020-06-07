@@ -1,14 +1,20 @@
 #! python3
+
 import re
 
 hitDiceRegex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
 
 def getHealth(hitDice, f):
-    hd = hitDiceRegex.findall(hitDice)
+    hd = hitDiceRegex.findall(hitDice.lower())
+    nums = []
+    for i in hd:
+        if 'd' in i:
+            nums.append(f(i.split('d')))
+        else:
+            nums.append(int(i))
+    print(sum(nums))
 
-#TODO: Write a parser for the regular expression.
-
-def calcAverageHealth():
+def calcAverageHealth(die):
     pass # 1/2 die value rounded down for every roll.
 
 def calcMax():
