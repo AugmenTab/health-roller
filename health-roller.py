@@ -11,7 +11,7 @@ def getHealth(hitDice, f):
     for i in hd:
         if 'd' in i:
             die = i.split('d')
-            if die[0] == '' or die[0] == '+' or die[0] == '-':
+            if die[0] in ('', '+', '-'):
                 die[0] = die[0] + '1'
             dice.append(list(map(int, die)))
         else:
@@ -41,16 +41,21 @@ def __calcMin(die):
     return minHealth
 
 def calcPCAverage(dice): #Max die value for first HD, 1/2 die value rounded down for every other roll.
+    return __calcPCRules(dice, calcAverageHealth)
+
+def __calcPCRules(dice, f):
     avgPC = []
     avgPC.append(dice[0][1])
-    avgPC.extend(calcAverageHealth(dice[1:]))
+    dice[0][0] -= 1
+    avgPC.append(sum(f(dice)))
+    print(avgPC)
     return avgPC
 
 def calcPCRollHealth():
     pass # Max die value for first HD, randomly rolled for every other roll.
 
-def calcPCSuggestedHealth():
-    pass # Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
+def calcPCSuggestedHealth(dice): #Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
+    return __calcPCRules(dice, calcSuggestedHealth)
 
 def calcRandomHealth():
     pass # Random rolls.
