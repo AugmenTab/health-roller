@@ -6,31 +6,46 @@ hitDiceRegex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
 
 def getHealth(hitDice, f):
     hd = hitDiceRegex.findall(hitDice.lower())
+    dice = []
     nums = []
     for i in hd:
         if 'd' in i:
             die = i.split('d')
             if die[0] == '' or die[0] == '+' or die[0] == '-':
                 die[0] = die[0] + '1'
-            nums.append(f(die))
+            dice.append(list(map(int, die)))
         else:
             nums.append(int(i))
+    nums.extend(f(dice))
     print('The monster has ' + str(sum(nums)) + ' hit points.')
 
-def calcAverageHealth(die): #1/2 die value rounded down for every roll
-    avgHealth = math.floor((int(die[1]) / 2) * int(die[0]))
+def calcAverageHealth(dice): #1/2 die value rounded down for every roll
+    return list(map(__calcAverageHealth, dice))
+
+def __calcAverageHealth(die):
+    avgHealth = math.floor((die[1] / 2) * die[0])
     return avgHealth
 
-def calcMax(die): #Max die value for every roll.
-    maxHealth = int(die[0]) * int(die[1])
+def calcMax(dice): #Max die value for every roll.
+    return list(map(__calcMax, dice))
+
+def __calcMax(die):
+    maxHealth = die[0] * die[1]
     return maxHealth
 
-def calcMin(die): #Min die value for every roll.
-    minHealth = int(die[0])
+def calcMin(dice): #Min die value for every roll.
+    return list(map(__calcMin, dice))
+
+def __calcMin(die):
+    minHealth = die[0]
     return minHealth
 
-def calcPCAverage(): #Max die value for first HD, 1/2 die value rounded down for every other roll.
-    pass 
+def calcPCAverage(die): #Max die value for first HD, 1/2 die value rounded down for every other roll.
+    lvlMax = False
+    avgPC = math.floor((int(die[1]) / 2) * int(die[0]) + int(die[1]))
+    if not lvlMax:
+        lvlMax = True
+    return avgPC
 
 def calcPCRollHealth():
     pass # Max die value for first HD, randomly rolled for every other roll.
@@ -41,8 +56,11 @@ def calcPCSuggestedHealth():
 def calcRandomHealth():
     pass # Random rolls.
 
-def calcSuggestedHealth(die): #(1/2)+1 die value rounded down for every roll.
-    sugHealth = math.floor(((int(die[1]) / 2) + 1) * int(die[0]))
+def calcSuggestedHealth(dice): #(1/2)+1 die value rounded down for every roll.
+    return list(map(__calcSuggestedHealth, dice))
+
+def __calcSuggestedHealth(die):
+    sugHealth = math.floor((((die[1]) / 2) + 1) * die[0])
     return sugHealth
 
 hitDice = input("Enter the monster's hit dice.\n")
