@@ -1,6 +1,6 @@
 #! python3
 
-import re, math
+import re, math, random
 
 hitDiceRegex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
 
@@ -57,8 +57,13 @@ def calcPCRollHealth():
 def calcPCSuggestedHealth(dice): #Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
     return __calcPCRules(dice, calcSuggestedHealth)
 
-def calcRandomHealth():
-    pass # Random rolls.
+def calcRandomHealth(dice): #Random rolls.
+    return list(map(__calcRandomHealth, dice))
+
+def __calcRandomHealth(die):
+    rand = random.randint(1, die[1])
+    print(rand)
+    return rand
 
 def calcSuggestedHealth(dice): #(1/2)+1 die value rounded down for every roll.
     return list(map(__calcSuggestedHealth, dice))
@@ -76,8 +81,7 @@ calcMsg = """Enter how you would like health calculated:
     - pcr for PC-styled randomly rolled health.
     - pcs for PC-styled suggested health.
     - rol for randomly rolled health.
-    - sug for the suggested health.
-    """
+    - sug for the suggested health.\n"""
 
 while True:
     calcMethod = input(calcMsg)
@@ -88,7 +92,7 @@ while True:
         'pca': calcPCAverage,
         'pcr': calcPCRollHealth,
         'pcs': calcPCSuggestedHealth,
-        'rol': calcPCRollHealth,
+        'rol': calcRandomHealth,
         'sug': calcSuggestedHealth
     }
     if calcMethod in calcMethods:
