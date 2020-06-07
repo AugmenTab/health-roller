@@ -14,8 +14,9 @@ def getHealth(hitDice, f):
             nums.append(int(i))
     print(sum(nums))
 
-def calcAverageHealth(die):
-    pass # 1/2 die value rounded down for every roll.
+def calcAverageHealth(die): # 1/2 die value rounded down for every roll
+    avgHealth = (int(die[1]) / 2) * int(die[0])
+    return int(avgHealth)
 
 def calcMax():
     pass # Max die value for every roll.
