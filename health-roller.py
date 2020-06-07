@@ -10,20 +10,20 @@ def getHealth(hitDice, f):
     for i in hd:
         if 'd' in i:
             die = i.split('d')
-            print(die)
             if die[0] == '' or die[0] == '+' or die[0] == '-':
                 die[0] = die[0] + '1'
             nums.append(f(die))
         else:
             nums.append(int(i))
-    print(sum(nums))
+    print('The monster has ' + str(sum(nums)) + ' hit points.')
 
 def calcAverageHealth(die): # 1/2 die value rounded down for every roll
     avgHealth = (int(die[1]) / 2) * int(die[0])
     return int(avgHealth)
 
 def calcMax(die): # Max die value for every roll.
-    pass
+    maxHealth = int(die[0]) * int(die[1])
+    return maxHealth
 
 def calcMin():
     pass # Min die value for every roll (1).
