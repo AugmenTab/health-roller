@@ -1,7 +1,7 @@
 #! python3
 import re
 
-hitDiceRegex = re.compile(r'([+/-]*[\d]*d[\d]{1,2}|[+/-]*\d+)')
+hitDiceRegex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
 
 def getHealth(hitDice, f):
     hd = hitDiceRegex.findall(hitDice)
@@ -32,7 +32,7 @@ def calcRandomHealth():
 def calcSuggestedHealth():
     pass # (1/2)+1 die value rounded down for every roll.
 
-hitDice = input("Enter the monster's hit dice.")
+hitDice = input("Enter the monster's hit dice.\n")
 calcMsg = """Enter how you would like health calculated:
     - avg for the average health.
     - max for the maximum health.
