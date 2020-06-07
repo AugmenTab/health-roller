@@ -40,11 +40,10 @@ def __calcMin(die):
     minHealth = die[0]
     return minHealth
 
-def calcPCAverage(die): #Max die value for first HD, 1/2 die value rounded down for every other roll.
-    lvlMax = False
-    avgPC = math.floor((int(die[1]) / 2) * int(die[0]) + int(die[1]))
-    if not lvlMax:
-        lvlMax = True
+def calcPCAverage(dice): #Max die value for first HD, 1/2 die value rounded down for every other roll.
+    avgPC = []
+    avgPC.append(dice[0][1])
+    avgPC.extend(calcAverageHealth(dice[1:]))
     return avgPC
 
 def calcPCRollHealth():
