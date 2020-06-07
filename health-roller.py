@@ -9,7 +9,10 @@ def getHealth(hitDice, f):
     nums = []
     for i in hd:
         if 'd' in i:
-            nums.append(f(i.split('d')))
+            die = i.split('d')
+            if die[0] == '' or '+':
+                die[0] = die[0] + '1'
+            nums.append(f(die))
         else:
             nums.append(int(i))
     print(sum(nums))
