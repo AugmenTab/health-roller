@@ -48,11 +48,10 @@ def __calcPCRules(dice, f):
     avgPC.append(dice[0][1])
     dice[0][0] -= 1
     avgPC.append(sum(f(dice)))
-    print(avgPC)
     return avgPC
 
-def calcPCRollHealth():
-    pass # Max die value for first HD, randomly rolled for every other roll.
+def calcPCRollHealth(dice): #Max die value for first HD, randomly rolled for every other roll.
+    return __calcPCRules(dice, calcRandomHealth)
 
 def calcPCSuggestedHealth(dice): #Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
     return __calcPCRules(dice, calcSuggestedHealth)
@@ -62,7 +61,6 @@ def calcRandomHealth(dice): #Random rolls.
 
 def __calcRandomHealth(die):
     rand = random.randint(1, die[1])
-    print(rand)
     return rand
 
 def calcSuggestedHealth(dice): #(1/2)+1 die value rounded down for every roll.
