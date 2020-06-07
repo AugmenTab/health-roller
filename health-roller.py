@@ -41,8 +41,9 @@ def calcPCSuggestedHealth():
 def calcRandomHealth():
     pass # Random rolls.
 
-def calcSuggestedHealth():
-    pass # (1/2)+1 die value rounded down for every roll.
+def calcSuggestedHealth(die): #(1/2)+1 die value rounded down for every roll.
+    sugHealth = math.floor(((int(die[1]) / 2) + 1) * int(die[0]))
+    return sugHealth
 
 hitDice = input("Enter the monster's hit dice.\n")
 calcMsg = """Enter how you would like health calculated:
