@@ -10,7 +10,8 @@ def getHealth(hitDice, f):
     for i in hd:
         if 'd' in i:
             die = i.split('d')
-            if die[0] == '' or '+' or '-':
+            print(die)
+            if die[0] == '' or die[0] == '+' or die[0] == '-':
                 die[0] = die[0] + '1'
             nums.append(f(die))
         else:
@@ -21,8 +22,8 @@ def calcAverageHealth(die): # 1/2 die value rounded down for every roll
     avgHealth = (int(die[1]) / 2) * int(die[0])
     return int(avgHealth)
 
-def calcMax():
-    pass # Max die value for every roll.
+def calcMax(die): # Max die value for every roll.
+    pass
 
 def calcMin():
     pass # Min die value for every roll (1).
