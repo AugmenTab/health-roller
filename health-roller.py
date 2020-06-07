@@ -25,8 +25,9 @@ def calcMax(die): # Max die value for every roll.
     maxHealth = int(die[0]) * int(die[1])
     return maxHealth
 
-def calcMin():
-    pass # Min die value for every roll (1).
+def calcMin(die):
+    minHealth = int(die[0])
+    return minHealth
 
 def calcPCAverage():
     pass # Max die value for first HD, 1/2 die value rounded down for every other roll.
