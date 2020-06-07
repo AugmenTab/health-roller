@@ -1,6 +1,6 @@
 #! python3
 
-import re
+import re, math
 
 hitDiceRegex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
 
@@ -17,20 +17,20 @@ def getHealth(hitDice, f):
             nums.append(int(i))
     print('The monster has ' + str(sum(nums)) + ' hit points.')
 
-def calcAverageHealth(die): # 1/2 die value rounded down for every roll
-    avgHealth = (int(die[1]) / 2) * int(die[0])
-    return int(avgHealth)
+def calcAverageHealth(die): #1/2 die value rounded down for every roll
+    avgHealth = math.floor((int(die[1]) / 2) * int(die[0]))
+    return avgHealth
 
-def calcMax(die): # Max die value for every roll.
+def calcMax(die): #Max die value for every roll.
     maxHealth = int(die[0]) * int(die[1])
     return maxHealth
 
-def calcMin(die):
+def calcMin(die): #Min die value for every roll.
     minHealth = int(die[0])
     return minHealth
 
-def calcPCAverage():
-    pass # Max die value for first HD, 1/2 die value rounded down for every other roll.
+def calcPCAverage(): #Max die value for first HD, 1/2 die value rounded down for every other roll.
+    pass 
 
 def calcPCRollHealth():
     pass # Max die value for first HD, randomly rolled for every other roll.
