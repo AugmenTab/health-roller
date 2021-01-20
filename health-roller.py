@@ -1,11 +1,14 @@
 #! python3
 
-import re, math, random
+import math
+import random
+import re
 
-hitDiceRegex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
+hit_dice_regex = re.compile(r'([+/-]*[\d]*[d,D][\d]{1,2}|[+/-]*\d+)')
 
-def getHealth(hitDice, f):
-    hd = hitDiceRegex.findall(hitDice.lower())
+
+def get_health(_hit_dice, f):
+    hd = hit_dice_regex.findall(_hit_dice.lower())
     dice = []
     nums = []
     for i in hd:
@@ -19,59 +22,73 @@ def getHealth(hitDice, f):
     nums.extend(f(dice))
     print('The monster has ' + str(sum(nums)) + ' hit points.')
 
-def calcAverageHealth(dice): #1/2 die value rounded down for every roll
-    return list(map(__calcAverageHealth, dice))
 
-def __calcAverageHealth(die):
-    avgHealth = math.floor((die[1] / 2) * die[0])
-    return avgHealth
+def calc_average_health(dice):  # 1/2 die value rounded down for every roll
+    return list(map(__calc_average_health, dice))
 
-def calcMax(dice): #Max die value for every roll.
-    return list(map(__calcMax, dice))
 
-def __calcMax(die):
-    maxHealth = die[0] * die[1]
-    return maxHealth
+def __calc_average_health(die):
+    avg_health = math.floor((die[1] / 2) * die[0])
+    return avg_health
 
-def calcMin(dice): #Min die value for every roll.
-    return list(map(__calcMin, dice))
 
-def __calcMin(die):
-    minHealth = die[0]
-    return minHealth
+def calc_max(dice):  # Max die value for every roll.
+    return list(map(__calc_max, dice))
 
-def calcPCAverage(dice): #Max die value for first HD, 1/2 die value rounded down for every other roll.
-    return __calcPCRules(dice, calcAverageHealth)
 
-def __calcPCRules(dice, f):
-    avgPC = []
-    avgPC.append(dice[0][1])
+def __calc_max(die):
+    max_health = die[0] * die[1]
+    return max_health
+
+
+def calc_min(dice):  # Min die value for every roll.
+    return list(map(__calc_min, dice))
+
+
+def __calc_min(die):
+    min_health = die[0]
+    return min_health
+
+
+def calc_pc_average(dice):  # Max die value for first HD, 1/2 die value rounded down for every other roll.
+    return __calc_pc_rules(dice, calc_average_health)
+
+
+def __calc_pc_rules(dice, f):
+    avg_pc = [dice[0][1]]
     dice[0][0] -= 1
-    avgPC.append(sum(f(dice)))
-    return avgPC
+    avg_pc.append(sum(f(dice)))
+    return avg_pc
 
-def calcPCRollHealth(dice): #Max die value for first HD, randomly rolled for every other roll.
-    return __calcPCRules(dice, calcRandomHealth)
 
-def calcPCSuggestedHealth(dice): #Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
-    return __calcPCRules(dice, calcSuggestedHealth)
+def calc_pc_roll_health(dice):  # Max die value for first HD, randomly rolled for every other roll.
+    return __calc_pc_rules(dice, calc_random_health)
 
-def calcRandomHealth(dice): #Random rolls.
-    return list(map(__calcRandomHealth, dice))
 
-def __calcRandomHealth(die):
+def calc_pc_suggested_health(dice):  # Max die value for first HD, (1/2)+1 die value rounded down for every other roll.
+    return __calc_pc_rules(dice, calc_suggested_health)
+
+
+def calc_random_health(dice):  # Random rolls.
+    return list(map(__calc_random_health, dice))
+
+
+def __calc_random_health(die):
     rand = random.randint(1, die[1])
     return rand
 
-def calcSuggestedHealth(dice): #(1/2)+1 die value rounded down for every roll.
-    return list(map(__calcSuggestedHealth, dice))
 
-def __calcSuggestedHealth(die):
-    sugHealth = math.floor((((die[1]) / 2) + 1) * die[0])
-    return sugHealth
+def calc_suggested_health(dice):  # (1/2)+1 die value rounded down for every roll.
+    return list(map(__calc_suggested_health, dice))
 
-hitDice = input("Enter the monster's hit dice.\n")
-calcMsg = """Enter how you would like health calculated:
+
+def __calc_suggested_health(die):
+    suggested_health = math.floor((((die[1]) / 2) + 1) * die[0])
+    return suggested_health
+
+
+hit_dice = input("Enter the monster's hit dice.\n")
+calc_msg = """Enter how you would like health calculated:
     - avg for the average health.
     - max for the maximum health.
     - min for the minimum health.
@@ -82,19 +99,19 @@ calcMsg = """Enter how you would like health calculated:
     - sug for the suggested health.\n"""
 
 while True:
-    calcMethod = input(calcMsg)
-    calcMethods = {
-        'avg': calcAverageHealth,
-        'max': calcMax,
-        'min': calcMin,
-        'pca': calcPCAverage,
-        'pcr': calcPCRollHealth,
-        'pcs': calcPCSuggestedHealth,
-        'rol': calcRandomHealth,
-        'sug': calcSuggestedHealth
+    calc_method = input(calc_msg)
+    calc_methods = {
+        'avg': calc_average_health,
+        'max': calc_max,
+        'min': calc_min,
+        'pca': calc_pc_average,
+        'pcr': calc_pc_roll_health,
+        'pcs': calc_pc_suggested_health,
+        'rol': calc_random_health,
+        'sug': calc_suggested_health
     }
-    if calcMethod in calcMethods:
-        getHealth(hitDice, calcMethods[calcMethod])
+    if calc_method in calc_methods:
+        get_health(hit_dice, calc_methods[calc_method])
         break
     else:
         print('That is not a valid option.')
